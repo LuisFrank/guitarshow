@@ -1,27 +1,94 @@
-<div class="row">
-    <div class="col-12">
-    <h2>FIND YOUR BEST FOOD</h2>
+<div class="container-fuild pb-5" id="featuredFood">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+            <h2 class="featuredFood-title text-center p5">
+                FIND YOUR BEST FOOD
+                <div class="d-block featuredFood-title-subtitle mt-4">
+                    Free website templates for guitars from Luis Florentino
+                </div>
+            </h2>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-8 col">
+                        <div class="row">
+                            <!-- nfor for the first two elements  -->
+                            <ng-template ngFor let-item [ngForOf]="featured" let-i="index" >
+                               
+                                <div *ngIf="i<2" class="col-md-12 col featuredFood-item">
+                                    <div *ngIf="i%2==0" class="row">  
+                                        
+                                        <div class="col-md-6 featuredFood-item-img-wrapper" style="background-image: url({{item.picture}});">
+                                           
+                                        </div>  
+                                        <div class="col-md-6 text-center  bg-white">
+                                            <div class="flex-column d-flex align-content-center justify-content-center h-100">
+                                                <h3>
+                                                    {{item.name}}
+                                                </h3>
+                                                <h4 class="text-uppercase">
+                                                    {{item.subtitle}}
+                                                </h4>
+                                                <div class="featuredFood-item-description">
+                                                    {{item.description}}
+                                                </div>
+                                                <a  class="text-uppercase"> Learn more</a>
+                                            </div>
+                                       </div>
+                                    </div> 
+                                    <div *ngIf="i%2!=0" class="row">
+                                        
+                                        <div class="col-md-6 text-center bg-white">
+                                            <div class="flex-column d-flex align-content-center justify-content-center h-100 ">
+                                                <h3>
+                                                    {{item.name}}
+                                                </h3>
+                                                <h4  class="text-uppercase">
+                                                    {{item.subtitle}}
+                                                </h4>
+                                                <div class="featuredFood-item-description">
+                                                    {{item.description}}
+                                                </div>          
+                                                <a class="text-uppercase"> Learn more</a>    
+                                            </div>                         
+                                       </div> 
+                                        <div class="col-md-6 featuredFood-item-img-wrapper" style="background-image: url({{item.picture}});">
+                                        </div>                             
+                                    </div>                               
+                                </div>
+                            </ng-template>                                            
+                        </div>
+    
+                    </div>
+                    <div class="col-4 col">    
+
+                        <ng-template ngFor let-item [ngForOf]="featured" let-i="index" >            
+                            <div *ngIf="i==2" class="col-md-12 col featuredFood-item">
+                                <div class="row">
+                                    <div class="col-md-12 featuredFood-item-img-wrapper" style="background-image: url({{item.picture}});">                               
+                                    </div> 
+                                    <div class="col-md-12 text-center bg-white">
+                                        <div class="flex-column d-flex align-content-center justify-content-center h-400 ">
+                                            <h3>
+                                                {{item.name}}
+                                            </h3>
+                                            <h4  class="text-uppercase">
+                                                {{item.subtitle}}
+                                            </h4>
+                                            <div class="featuredFood-item-description">
+                                                {{item.description}}
+                                            </div>  
+                                            <a class="text-uppercase"> Learn more</a>
+                                        </div>
+                                    </div>                                                                       
+                                </div>                            
+                            </div>
+                        </ng-template>
+
+                    </div>
+                </div>
+            </div>    
+        </div>
     </div>
-    <div class="col-12">
-    <div class="row">
-        <div class="col-md-4">
-           Nulla in dolore nostrud cillum enim elit dolore consectetur adipisicing mollit aliqua quis. Officia tempor exercitation ea nostrud qui elit est minim nulla et exercitation veniam quis. Fugiat do mollit magna consequat laboris reprehenderit magna enim consectetur elit do proident veniam.
-        </div>
-        <div class="col-md-4">
-        Nulla in dolore nostrud cillum enim elit dolore consectetur adipisicing mollit aliqua quis. Officia tempor exercitation ea nostrud qui elit est minim nulla et exercitation veniam quis. Fugiat do mollit magna consequat laboris reprehenderit magna enim consectetur elit do proident veniam.
-        </div>
-        <div class="col-md-4">
-            Nulla in dolore nostrud cillum enim elit dolore consectetur adipisicing mollit aliqua quis. Officia tempor exercitation ea nostrud qui elit est minim nulla et exercitation veniam quis. Fugiat do mollit magna consequat laboris reprehenderit magna enim consectetur elit do proident veniam.    
-        </div>
-        <div class="col-md-4">
-            Nulla in dolore nostrud cillum enim elit dolore consectetur adipisicing mollit aliqua quis. Officia tempor exercitation ea nostrud qui elit est minim nulla et exercitation veniam quis. Fugiat do mollit magna consequat laboris reprehenderit magna enim consectetur elit do proident veniam.
-        </div>
-        <div class="col-md-4">
-            Nulla in dolore nostrud cillum enim elit dolore consectetur adipisicing mollit aliqua quis. Officia tempor exercitation ea nostrud qui elit est minim nulla et exercitation veniam quis. Fugiat do mollit magna consequat laboris reprehenderit magna enim consectetur elit do proident veniam.
-        </div>
-        <div class="col-md-4">
-        Nulla in dolore nostrud cillum enim elit dolore consectetur adipisicing mollit aliqua quis. Officia tempor exercitation ea nostrud qui elit est minim nulla et exercitation veniam quis. Fugiat do mollit magna consequat laboris reprehenderit magna enim consectetur elit do proident veniam.
-        </div>
-    </div>
-    </div>    
 </div>

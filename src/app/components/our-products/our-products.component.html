@@ -1,1 +1,47 @@
-<p>our-products works!</p>
+<div class="container-fluid pt-5 mt-5" id="ourProducts">
+    <div class="container">
+        <div class="row justify-content-center">
+           <div class="col-md-8">
+            <div class="col-md-12">
+                <h2 class="text-center">Menu</h2>
+            </div>
+            <h3 class="col-md-12 text-center sub-title" > 
+                Nostrud pariatur cillum occaecat aliquip est velit
+            </h3>
+            
+            <div class="col-md-12">
+                <div class="row list-categories">
+                    <div class="col-12 text-center">
+                        <span (click)="activeTab=1"  [ngClass]="{'active': 1 == activeTab}" class="categories pt-1">
+                            BREAKFAST
+                        </span>
+                        <span  (click)="activeTab=2"  [ngClass]="{'active': 2 == activeTab}" class="categories  pt-1">
+                            BRUNCH
+                        </span>
+                        <span  (click)="activeTab=3"  [ngClass]="{'active': 3 == activeTab}" class="categories  pt-1">
+                            DINNER
+                        </span>
+                    </div>
+
+                </div>
+                <div *ngFor="let product of productsList" [ngClass]="{'d-none': product.category != activeTab}" class="product">
+
+                    <div class="row">
+                        <div class="col-md-3 mb-3 img"> 
+                            <img src="{{product.picture}}" alt={{product.name}} class="img"/>
+                        </div>
+                        <div class="col-md-7">
+                            <h3 class="product-name">{{product.name}}</h3>
+                            <p> {{product.description}}</p>
+                        </div>
+                        <div class="col-md-2 price">
+                            {{product.price}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
+    </div>
+    
+</div>

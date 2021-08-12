@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { chefs } from 'src/app/mocks/index';
 @Component({
   selector: 'app-chefs',
   templateUrl: './chefs.component.html',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChefsComponent implements OnInit {
 
-  constructor() { }
+    chefsList = chefs 
+  constructor() {
+    console.log("chefs",chefs);
+   }
 
   ngOnInit(): void {
   }
