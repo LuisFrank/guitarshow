@@ -65,3 +65,19 @@
       
     }
 }
+
+#bar {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    width: 40%;
+    height: 40%;
+    -webkit-transition: 0.1s ease all;
+}
+
+.p {
+    background-color: blue;
+    height: 100%;
+    width: 10%;
+    float: left;
+}

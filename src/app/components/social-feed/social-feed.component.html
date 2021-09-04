@@ -1,13 +1,78 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2>The restaurant</h2>
-            <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+            <h2 class="text-center p2">GUITAR SCALES</h2>
+            <p>
+El mundo de las escalas ha sido abordado desde diferentes aristas, y siempre
+se ha reconocido en él un material vital para la creación e interpretación musical.
+Sin embargo, no siempre es fácil desarrollar un plan de trabajo que nos permita,
+en cualquiera de estos abordajes, una ruta clara y efectiva para manipular este
+recurso musical, bien sea en la improvisación, la composición o la interpretación. 
+            </p>
+            <p>
+Considerando las transformaciones técnicas y estéticas sucedidas en la música
+hasta el día de hoy, el estudio de las escalas es aún un tema fundamental en la
+formación y desarrollo del músico. Este campo de estudio traspasa aspectos tan
+diversos como la teoría musical, la composición y particularmente, el de la interpretación instrumental
             </p>
         </div>
+
         <div class="col-md-12">
-            <img src="https://preview.colorlib.com/theme/meal/images/xbg_hero.png.pagespeed.ic.amM03QbRMh.webp"
-             class="align-center"/>
+            <div>
+                <label>
+                    Show multiple notes
+                </label>
+                <input type="checkbox" id="showAllnotes"  (change)="showAllNotes($event)"/>
+            </div>
+            <div #fretboard class="fretboard">
+                
+            </div>
+            <!-- <img src="https://preview.colorlib.com/theme/meal/images/xbg_hero.png.pagespeed.ic.amM03QbRMh.webp"
+             class="align-center"/> -->
+        </div> 
+        
+    </div>
+    <div class="row">       
+
+        <div class="btn-group btn-group-justified pt-5" role="group" aria-label="First group" >
+            
+           
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="getScalesName('ionian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio1">JONICO</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="getScalesName('dorian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio2">DORICO</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (click)="getScalesName('phrygian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio3">FRIGIO</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (click)="getScalesName('lydian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio4">LIDIO</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" (click)="getScalesName('mixolydian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio5">MIXOLIDIO</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" (click)="getScalesName('aeolian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio6">EOLICO</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off" (click)="getScalesName('locrian')" checked>
+            <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio7">LOCRIO</label>
+            
+            <!-- <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('ionian')">JONICO</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('dorian')">DORICO</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('phrygian')">FRIGIO</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('lydian')">LIDIO</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('mixolydian')">MIXOLIDIO</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('aeolian')">EOLICO</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('locrian')">LOCRIO</button> -->
+        </div>  
+       
+        <div class="btn-group btn-group-justified pt-2" role="group" aria-label="Second group" >
+            <ng-container *ngFor="let item of notesSharp; index as i;">
+                <input type="radio" class="btn-check" name="btnradionote" id="btnradionote{{8 + i}}" autocomplete="off"  (click)="setNote(item)" checked>
+                <label class="btn btn-outline-secondary btn-lg btn-note" for="btnradionote{{8 + i}}"> {{item}}</label>
+            </ng-container>
+           
         </div>    
     </div>
 </div>

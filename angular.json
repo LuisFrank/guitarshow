@@ -31,13 +31,18 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/crepe_models_3"
             ],
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/ml5/dist/ml5.js",    
+              "node_modules/p5/lib/p5.js",
+              "node_modules/p5/lib/addons/p5.sound.js"      
+            ]
           },
           "configurations": {
             "production": {
