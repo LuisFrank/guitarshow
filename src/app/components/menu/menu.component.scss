@@ -75,6 +75,16 @@ overflow: auto;
             -webkit-transition: .3s all ease;
             -o-transition: .3s all ease;
             transition: .3s all ease;
+
+            a{
+                text-decoration: none;
+                color:  #6c757d;
+                font-family: var(--font-subtitle-style);
+            }
+
+            a:hover{
+                color:  #8d98a1;
+            }
         }
     }
 }

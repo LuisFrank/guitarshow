@@ -1,4 +1,4 @@
-#featuredFood{
+#GuitarTune{
     background-color: #f8f9fa;
 
     .h-400{
@@ -9,10 +9,11 @@
         background-color: white;
     }
     .featuredFood-title{
-        margin: 2em 0;
+        margin: 2em 0 1em 0;
         font-size: 50px;
         color: #000;
-        font-family: "Playfair Display", serif;
+        // font-family: "Playfair Display", serif;
+        font-family: var(--font-subtitle-style);
 
         .featuredFood-title-subtitle{
             font-size: 20px;
@@ -81,3 +82,8 @@
     width: 10%;
     float: left;
 }
+
+// .p5Canvas{
+//     width: 100%!important;
+//     height: 100%!important;
+// }

@@ -1,0 +1,52 @@
+
+<div class="container-fluid" id="Metronome">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="metronome-title  text-break text-center p2">
+                    METRÓNOMO                   
+                </h2>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <p>Muchos autores, a partir de la época del invento, tomaron la costumbre de encabezar sus
+                         composiciones con un número que reprodujese el del metrónomo correspondiente al movimiento
+                          que querían dar a su obra. Sin embargo si uno se atiene ciegamente a sus indicaciones corre 
+                          el riesgo de ejecutar mecánica — y aritméticamente la música; como una máquina.</p>
+                    <p>
+                        El instrumento da buenas indicaciones y nada más; pero todavía hay que someterlas a la comprobación 
+                        del sentimiento musical, si se posee, pues este es el mejor metrónomo para la buena interpretación 
+                        (AntionAlba - Teoria Musical)
+                    </p>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="metronome text-center">
+                        <div class="bpm-display d-flex justify-content-center">
+                            <div class="tempo d-flex align-items-end">{{bpm_text}}</div>
+                            <div class="bpm d-flex align-items-end">BPM</div>            
+                        </div>
+                        <div class="tempo-text">{{tempo_text}}</div>
+                        <div class="tempo-settings">
+                            <div class="adjust-tempo-btn decrease-tempo" (click)="descreaseTempoBtn()">-</div>
+                            <input type="range" min="20" max="260" step="1" class="sliderRange" id="sliderRange" value="140" (input)="changeSlider($event)">
+                            <div class="adjust-tempo-btn increase-tempo" (click)="increaseTempoBtn()">+</div>
+                
+                        </div>
+                        <div class="start-stop" (click)="startStopMetronome()">
+                            {{startStop_text}}
+                        </div>
+                        <div class="measures">
+                            <div class="subtract-beats stepper" (click)="subtractBeats()">-</div>
+                            <div class="measure-count">{{beatsPerMeasure_text}}</div>
+                            <div class="add-beats stepper" (click)="addBeats()">+</div>
+                        </div>
+                        <div class="beats-per-measure-text">
+                            Beats per meassure
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div> 
+    </div>
+    
+</div>

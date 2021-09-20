@@ -1,16 +1,78 @@
-<div class="container-fluid pt-5 mt-5" id="ourProducts">
+<div class="container-fluid pb-5" id="GuitarProgresions">
     <div class="container">
         <div class="row justify-content-center">
-           <div class="col-md-8">
             <div class="col-md-12">
-                <h2 class="text-center">Menu</h2>
+                <h2 class="text-center guitarProgressions-title p2 text-break">PROGRESIONES DE GUITARRA</h2>
             </div>
-            <h3 class="col-md-12 text-center sub-title" > 
-                Nostrud pariatur cillum occaecat aliquip est velit
-            </h3>
+           <div class="col-md-12">
+                <div class="row">
+                        <p>Los modos son colores o escalas distintas
+                        de la escala mayor y menor, si bien tienen
+                        un patrón común que las conecta. El nombre
+                        "modos griegos", por cierto, es erróneo y no
+                        debiese utilizarse demasiado.</p>
+                        <p>Estas nuevas escalas nos pueden entregar
+                        colores muy característicos y apropiados
+                        para delinear otras sensaciones: entre lo mayor
+                        y lo menor, obtendremos todo un mundo
+                        intermedio disponible para expresar nuestro
+                        mundo sonoro.
+                        </p>              
+                </div>
+                <div class="row">
+                    <div class="mt-4">
+                    <div class="table-responsive">
+                        <table class="table table-font table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">I</th>
+                                    <th scope="col">II</th>
+                                    <th scope="col">III</th>
+                                    <th scope="col">IV</th>
+                                    <th scope="col">V</th>
+                                    <th scope="col">VI</th>
+                                    <th scope="col">VII</th>
+                                </tr>                                        
+                            </thead>
+                            <tbody>                             
+                            <tr *ngFor="let progression of progressionsList ;let i= index"  id="scalename_{{i}}" 
+                                    [ngClass]="{'scale-name  table-secondary': current_scale_index === i &&
+                                                                                current_ScaleName !== '' &&
+                                                                                current_ScaleName !== undefined && 
+                                                                                current_Note !== '' &&
+                                                                                current_Note !== undefined}">
+                                <td scope="row">{{progression.name2 | uppercase}}</td>
+                                <td>{{progression.roman_1}}</td>
+                                <td>{{progression.roman_2}}</td>
+                                <td>{{progression.roman_3}}</td>
+                                <td>{{progression.roman_4}}</td>
+                                <td>{{progression.roman_5}}</td>
+                                <td>{{progression.roman_6}}</td>
+                                <td>{{progression.roman_7}}</td>
+                            
+                                        
+                                        
+                                    <!-- <div class="col-md-3 mb-3 img"> 
+                                        <img src="{{product.picture}}" alt={{product.name}} class="img"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <h3 class="product-name">{{product.name}}</h3>
+                                        <p> {{product.description}}</p>
+                                    </div>
+                                    <div class="col-md-2 price">
+                                        {{product.price}}
+                                    </div> -->
+                            </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    </div>
+                </div>
             
-            <div class="col-md-12">
-                <div class="row list-categories">
+           
+                <!-- <div class="row list-categories">
                     <div class="col-12 text-center">
                         <span (click)="activeTab=1"  [ngClass]="{'active': 1 == activeTab}" class="categories pt-1">
                             BREAKFAST
@@ -23,8 +85,8 @@
                         </span>
                     </div>
 
-                </div>
-                <div *ngFor="let product of productsList" [ngClass]="{'d-none': product.category != activeTab}" class="product">
+                </div> -->
+                <!-- <div *ngFor="let product of productsList" [ngClass]="{'d-none': product.category != activeTab}" class="product">
 
                     <div class="row">
                         <div class="col-md-3 mb-3 img"> 
@@ -38,8 +100,10 @@
                             {{product.price}}
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> -->
+           
+
+           
            </div>
         </div>
     </div>

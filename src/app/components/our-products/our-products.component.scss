@@ -1,10 +1,26 @@
-#ourProducts{
-    background-color: #f8f9fa!important;
-    padding: 10em 0;
-    font-family: "Playfair Display", serif;
-    h2{
+#GuitarProgresions{
+
+    .guitarProgressions-title{
+        margin: 2em 0 1em 0;
         font-size: 50px;
+        color: #000;
+        font-family: var(--font-subtitle-style);
+
+        // .featuredFood-title-subtitle{
+        //     font-size: 20px;
+        //     font-weight: 300;
+        //     font-family: roboto, sans-serif;
+
+        // }
     }
+
+    background-color: #f8f9fa!important;
+    // padding: 2em 0;
+    // font-family: "Playfair Display", serif;
+
+    // h2{
+    //     font-size: 50px;
+    // }
     h3{
         font-size: 20px;        
         color: gray;
@@ -57,18 +73,18 @@
         margin-bottom: 7em !important;
     }
     
-    p{
-        display: block;
-        margin-block-start: 1em;
-        margin-block-end: 1em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        font-family: "Open Sans",Arial,sans-serif;
-        font-size: 20px;
-        line-height: 1.8;
-        font-weight: 300;
-        color: gray;
-    }
+    // p{
+    //     display: block;
+    //     margin-block-start: 1em;
+    //     margin-block-end: 1em;
+    //     margin-inline-start: 0px;
+    //     margin-inline-end: 0px;
+    //     font-family: "Open Sans",Arial,sans-serif;
+    //     font-size: 20px;
+    //     line-height: 1.8;
+    //     font-weight: 300;
+    //     color: gray;
+    // }
 
     .product{
         border-bottom: 1px dotted #ccc;
@@ -89,6 +105,42 @@
 
     .img{
         border-radius: 10%;
+    }
+
+    .border-element{
+        padding: 1.5rem;
+        margin-right: 0;
+        margin-left: 0;
+        border-width: 1px;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    .table-font{
+
+        // th{
+
+        // }
+        color: gray;
+        // font-family: "Open Sans", Arial, sans-serif;
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+    }
+
+    .scale-name{
+        font-size: 30px;
+        transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        transition: transform .5s;
+        --bs-table-bg: #6c757d;
+        color: #fff;
+        background-color: #6c757d;
+        // border-color: #6c757d;
+        // background: #6c757d;
+        // color: #fff;
+        // border-width: 1px;
+        // border-top-left-radius: .25rem;
+        // border-top-right-radius: .25rem;
+
     }
   
 }

@@ -1,10 +1,16 @@
+
+
 .slider{
     width: 100vw;
     height: 100vh;
-    background-image: url("https://preview.colorlib.com/theme/meal/images/xslider-1.jpg.pagespeed.ic.grltCgRAOJ.webp");
+    background-image: url("/assets/images/colour_creation.jpg");
     background-size: cover;
     overflow: hidden;
     max-width: 100%;
+
+    // background-repeat: no-repeat;
+    // background-attachment: fixed;
+    // background-position: center; 
     .slider-content{
         width: 100vw;
         height: 100vh;
@@ -14,7 +20,11 @@
             font-weight: 700px;
             line-height: 1.2;
             color: azure;
-            font-family: "Playfair Display", serif;
+            // font-family: "Bebas Neue", cursive;
+            // font-family: "Abril Fatface", cursive;
+            font-family: var(--font-title-style);
+            // , cursive;
+            // font-family: "Playfair Display", serif;
 
         }
         button.slider-content--cta{
@@ -30,7 +40,7 @@
 
         button.slider-content--cta:hover {
             color: #fff;
-            border-bottom: none;
+            border: none;
         }
     }
 }

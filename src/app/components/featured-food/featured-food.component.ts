@@ -21,16 +21,6 @@ export class FeaturedFoodComponent implements OnInit  {
 
   featured: any = featured;
   start:boolean = false;
-  // mic: any;
-
-  // audioInput = null;
-  // microphone_stream = null;
-  // gain_node = null;
-  // script_processor_node = null;
-  // script_processor_fft_node = null;
-  // analyserNode = null;
-
-  // play: boolean = false;
   
   audioContext:any;
   mic :any;
@@ -39,17 +29,7 @@ export class FeaturedFoodComponent implements OnInit  {
   frequency:any = 0;
   threshold = 1;
   notes = [
-    // E: 82 Hz (E2 Musical Note)
 
-    // A: 110 Hz (A2 Musical Note)
-
-    // D: 147 Hz (D3 Musical Note)
-
-    // G: 196 Hz (G3 Musical Note)
-
-    // B: 247 Hz (B3 Musical Note)
-
-    // E: 330 Hz (E4 Musical Note)
 
     {note:'E',freq: 82.407},
     {note:'A',freq: 110},
@@ -59,6 +39,8 @@ export class FeaturedFoodComponent implements OnInit  {
     {note:'E',freq: 329.628}
 
   ];
+
+ 
 
   constructor(private elementRef:ElementRef) {
    
@@ -111,16 +93,66 @@ export class FeaturedFoodComponent implements OnInit  {
   loadCanvas(){
     const s = (p:any) => {
 
-      let canvas;        
+      // var w = window.innerWidth * 0.27;
+      // var h = window.innerHeight * 0.4; 
+
+      var w = 400;
+      var h = 400; 
+      // if( window.innerWidth < 768){
+      //   console.log(" window.innerWidth if", window.innerWidth);
+      //   // w = window.innerWidth *0.8;
+      //   // h = window.innerHeight *0.2;  
+      //   w = 325;
+      //   h = 325;  
+      // }else{
+      //   console.log(" window.innerWidth else", window.innerWidth);
+      //   w = 400;
+      //   h = 400;  
+      // }
+       
+      
+      let canvas:any;        
 
       p.preload = () => {
         console.log('preload');        
       }               
 
       p.setup = () => {
-        canvas = p.createCanvas(400, 400);        
+        canvas = p.createCanvas(w,h);        
         canvas.parent('draws');       
       }
+      // p.windowResized = () => {
+      //     // assigns new values for width and height variables
+      //       console.log("REeize w", w = window.innerWidth);
+      //       console.log("REeize h", h = window.innerHeight);
+      //   // w = window.innerWidth/4.5;
+      //   // h = window.innerHeight; 
+      //   // w = window.innerWidth * 0.2;
+      //   // h = window.innerHeight * 0.1; 
+      //   if( window.innerWidth < 768){
+      //     // w = window.innerWidth *0.8;
+      //     // h = window.innerHeight *0.2;  
+      //     w = 325;
+      //     h = 325;  
+      //   }else{
+      //     w = 400;
+      //     h = 400;  
+      //   }
+         
+      //   p.resizeCanvas(w, h,true);
+      // }
+
+      // window.onresize = function() {
+      //   console.log("REeize");
+      //   console.log("REeize", w = window.innerWidth);
+      //   console.log("REeize", h = window.innerHeight);
+       
+      
+       
+      //   // canvas.size(this.w,this.h);    
+      // }
+
+     
 
       p.draw = () => {
        

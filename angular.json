@@ -31,8 +31,11 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
+              "src/favicon2.ico",
               "src/assets",
-              "src/assets/crepe_models_3"
+              "src/assets/crepe_models_3",
+              "src/assets/audio",
+              "src/assets/images"
             ],
             "styles": [
               "src/styles.scss",
@@ -41,7 +44,8 @@
             "scripts": [
               "node_modules/ml5/dist/ml5.js",    
               "node_modules/p5/lib/p5.js",
-              "node_modules/p5/lib/addons/p5.sound.js"      
+              "node_modules/p5/lib/addons/p5.sound.js"  ,
+              "src/assets/js/timer.js"
             ]
           },
           "configurations": {
