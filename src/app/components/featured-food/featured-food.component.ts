@@ -28,6 +28,12 @@ export class FeaturedFoodComponent implements OnInit  {
   stream: any;
   frequency:any = 0;
   threshold = 1;
+
+  startStop_tuner = "START";
+  startTunerBool = false;
+
+ 
+
   notes = [
 
 
@@ -45,27 +51,41 @@ export class FeaturedFoodComponent implements OnInit  {
   constructor(private elementRef:ElementRef) {
    
    }
- 
 
-   Iniciar(){
-    this.demo();
-   
+   startTuner(){
+     console.log("tuner");
+     console.log("tuner-this.start",this.start);
+      if(!this.start){     
+        this.startStop_tuner = "Stop";
+        this.start = !this.start;       
+        this.loadTuner();
+       
+      }else{
+        this.start = !this.start;
+        this.startStop_tuner = "Start";      
+        this.stopTuner();
+      }
    }
 
-  async demo(){
+  stopTuner(){
+    this.stream.getAudioTracks()[0].stop();
+  } 
+
+  async loadTuner(){
     this.audioContext = new AudioContext();
-    var stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    this.startPitch(stream,this.audioContext);   
+    this.stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    console.log("strean",this.stream);
+    this.startPitch( this.stream,this.audioContext);   
   }
 
   startPitch(stream:any,context:any){
-    var pitch = ml5.pitchDetection('././assets/crepe_models_3',
+    this.pitch = ml5.pitchDetection('././assets/crepe_models_3',
     context , 
     stream,
     () =>{
       console.log("model loaded", ":)");  
       
-        this.getPitch(pitch);
+        this.getPitch(this.pitch);
     }    
     )  
   }
@@ -75,10 +95,10 @@ export class FeaturedFoodComponent implements OnInit  {
 
       pitch.getPitch((err:any, frequency:any) => {
         if (frequency) {
-            console.log("frequency",frequency);
+            // console.log("frequency",frequency);
             this.frequency=frequency;
         } else {
-            console.log("err",err);
+            // console.log("err",err);
         }
         this.getPitch(pitch);
       })

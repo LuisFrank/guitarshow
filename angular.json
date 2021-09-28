@@ -42,9 +42,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
-              "node_modules/ml5/dist/ml5.js",    
+              "node_modules/ml5/dist/ml5.js",
               "node_modules/p5/lib/p5.js",
-              "node_modules/p5/lib/addons/p5.sound.js"  ,
+              "node_modules/p5/lib/addons/p5.sound.js",
               "src/assets/js/timer.js"
             ]
           },
@@ -53,8 +53,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -116,6 +116,10 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }

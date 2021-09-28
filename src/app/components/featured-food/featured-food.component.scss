@@ -87,3 +87,23 @@
 //     width: 100%!important;
 //     height: 100%!important;
 // }
+
+
+.start-stop-tuner{
+    width: 100px;
+    height: 30px;
+    font-size: 0.7em;
+    text-align: center;
+    background: #6c757d; 
+    // background: #fa545c;
+    // border-radius: 50%;
+    color: #fff;
+    line-height: 30px;
+    margin: 0 auto;
+    cursor: pointer;
+
+}
+
+.start-stop-tuner:hover{
+    background: #828c96;
+}

@@ -22,6 +22,7 @@ export class SocialFeedComponent implements OnInit {
   doubleFretMarkPositions = [12,24];
   opacity:any = 0;
   shouldShow = true;
+  fretsNumber:any = [];
 
   currentScaleName:any;
   currentNote:any;
@@ -51,6 +52,7 @@ export class SocialFeedComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.generateNumberFrets();
     this.renderer.setProperty(this.root,'--notepacity',this.opacity);
     this.renderer.setProperty(this.root,'--number-of-strings',this.numberOfString);
     // this.root.style.setProperty('--number-of-strings',this.numberOfString);
@@ -59,6 +61,13 @@ export class SocialFeedComponent implements OnInit {
 
 
 
+  }
+
+  generateNumberFrets(){
+    
+    for (var _i = 0; _i <= this.numbersOfFrets; _i++) {
+      this.fretsNumber.push(_i);
+    }
   }
 
 

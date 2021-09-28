@@ -1,4 +1,4 @@
-<div class="container-fluid scales" id="GuitarScales">
+<div class="container-fluid scales pb-5" id="GuitarScales">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -7,7 +7,7 @@
     
             <div class="col-md-12">
                 <div class="row">
-                    <p class="text-justify">
+                    <!-- <p class="text-justify">
                     El mundo de las escalas ha sido abordado desde diferentes aristas, y siempre
                     se ha reconocido en él un material vital para la creación e interpretación musical.
                     Sin embargo, no siempre es fácil desarrollar un plan de trabajo que nos permita,
@@ -19,26 +19,25 @@
                     hasta el día de hoy, el estudio de las escalas es aún un tema fundamental en la
                     formación y desarrollo del músico. Este campo de estudio traspasa aspectos tan
                     diversos como la teoría musical, la composición y particularmente, el de la interpretación instrumental
-                    </p>
+                    </p> -->
                 </div>
-                <!-- <div>
-                    <label>
-                        Show multiple notes
-                    </label>
-                    <input type="checkbox" id="showAllnotes"  (change)="showAllNotes($event)"/>
-                </div> -->
-                <div class="overflow-auto">
-    
-               
-                <div #fretboard class="fretboard ">
-                    
-                </div>
-            </div>
-                <!-- <img src="https://preview.colorlib.com/theme/meal/images/xbg_hero.png.pagespeed.ic.amM03QbRMh.webp"
-                 class="align-center"/> -->
+         
+                <div class="overflow-auto">   
+                    <div #fretboard class="fretboard">
+                      
+                        <div id="fretNumber" class="d-flex fretnumber">
+                            <ng-container *ngFor="let item of fretsNumber;">
+                                <h5> <span class="badge bg-secondary  bg-light text-dark">{{item}}</span></h5>
+                            </ng-container>
+                        
+                        </div>
+                    </div>                  
+                   
+                </div>            
             </div> 
             
         </div>
+        
         <div class="row">       
     
             <div class="btn-group btn-group-justified pt-5 btn-vertical" role="group" aria-label="First group" >
@@ -65,13 +64,7 @@
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off" (click)="getScalesName('locrian')" >
                 <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio7">LOCRIO</label>
                 
-                <!-- <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('ionian')">JONICO</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('dorian')">DORICO</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('phrygian')">FRIGIO</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('lydian')">LIDIO</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('mixolydian')">MIXOLIDIO</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('aeolian')">EOLICO</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg btn-scales" (click)="getScalesName('locrian')">LOCRIO</button> -->
+         
             </div>  
            
             <div class="btn-group btn-group-justified pt-2 btn-vertical" role="group" aria-label="Second group" >
