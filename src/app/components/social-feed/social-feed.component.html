@@ -27,7 +27,7 @@
                       
                         <div id="fretNumber" class="d-flex fretnumber">
                             <ng-container *ngFor="let item of fretsNumber;">
-                                <h5> <span class="badge bg-secondary  bg-light text-dark">{{item}}</span></h5>
+                                <h5> <span class="badge text-dark">{{item}}</span></h5>
                             </ng-container>
                         
                         </div>
@@ -38,11 +38,11 @@
             
         </div>
         
-        <div class="row">       
-    
-            <div class="btn-group btn-group-justified pt-5 btn-vertical" role="group" aria-label="First group" >
+        <div class="row  pt-5">       
+          
+            <div class="col btn-group btn-group-justified btn-vertical mb-md-2" role="group" aria-label="First group" >
                 
-               
+            
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="getScalesName('ionian')" >
                 <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio1">JONICO</label>
     
@@ -64,10 +64,11 @@
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off" (click)="getScalesName('locrian')" >
                 <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio7">LOCRIO</label>
                 
-         
-            </div>  
+        
+            </div> 
+          
            
-            <div class="btn-group btn-group-justified pt-2 btn-vertical" role="group" aria-label="Second group" >
+            <div class="col btn-group btn-group-justified  btn-vertical" role="group" aria-label="Second group" >
                 <ng-container *ngFor="let item of notesSharp; index as i;">
                     <input type="radio" class="btn-check" name="btnradionote" id="btnradionote{{8 + i}}" autocomplete="off"  (click)="setNote(item)">
                     <label class="btn btn-outline-secondary btn-lg btn-note" for="btnradionote{{8 + i}}"> {{item}}</label>
