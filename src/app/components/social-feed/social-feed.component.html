@@ -1,10 +1,71 @@
-<div class="container-fluid scales pb-5" id="GuitarScales">
+<div class="container-fluid py-5" id="GuitarScales">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="guitarScale-title text-center p2">ESCALAS DE GUITARRA</h2>
+                <p class="section-label justify-content-center">Fretboard</p>
+                <h2 class="guitarScale-title text-center">ESCALAS DE GUITARRA</h2>
+                <div class="selection-badge text-center" *ngIf="currentNote">
+                    <span class="sel-note">{{ currentNote }}</span>
+                    <span class="sel-sep" *ngIf="currentScaleName"> · </span>
+                    <span class="sel-scale" *ngIf="currentScaleName">{{ getSelectionLabel() }}</span>
+                </div>
             </div>
     
+            <div class="col-md-12 mb-3">
+                <div class="row justify-content-between align-items-center g-2">
+
+                    <!-- Tuning selector -->
+                    <div class="col-auto">
+                        <div class="fretboard-toolbar-label">Afinación</div>
+                        <div class="btn-group" role="group">
+                            <ng-container *ngFor="let key of tuningKeys">
+                                <input type="radio" class="btn-check" name="tuning" [id]="'tuning-' + key" autocomplete="off"
+                                    [checked]="selectedTuning === key" (click)="changeTuning(key)">
+                                <label class="btn btn-outline-secondary btn-tuning" [for]="'tuning-' + key">
+                                    {{ tunings[key].label }}
+                                </label>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <!-- Show all / clear -->
+                    <div class="col-auto">
+                        <div class="fretboard-toolbar-label">Notas</div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-secondary fretboard-action-btn"
+                                    [class.active]="showAllNoteNames"
+                                    (click)="toggleAllNoteNames()">Ver todo</button>
+                            <button class="btn btn-sm btn-outline-secondary fretboard-action-btn"
+                                    [class.active]="showDegrees"
+                                    [disabled]="showAllNoteNames"
+                                    (click)="toggleShowDegrees()">Grados</button>
+                            <button class="btn btn-sm btn-outline-secondary fretboard-action-btn"
+                                    (click)="clearFretboard()">Limpiar</button>
+                        </div>
+                    </div>
+
+                    <!-- Degree highlight toggles -->
+                    <div class="col-auto">
+                        <div class="fretboard-toolbar-label">Destacar grados</div>
+                        <div class="degree-toggles">
+                            <button class="degree-btn d1"
+                                [class.active]="degreeHighlights[1]"
+                                (click)="toggleDegree(1)">I</button>
+                            <button class="degree-btn d3"
+                                [class.active]="degreeHighlights[3]"
+                                (click)="toggleDegree(3)">III</button>
+                            <button class="degree-btn d5"
+                                [class.active]="degreeHighlights[5]"
+                                (click)="toggleDegree(5)">V</button>
+                            <button class="degree-btn d7"
+                                [class.active]="degreeHighlights[7]"
+                                (click)="toggleDegree(7)">VII</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="col-md-12">
                 <div class="row">
                     <!-- <p class="text-justify">
@@ -23,11 +84,11 @@
                 </div>
          
                 <div class="overflow-auto">   
-                    <div #fretboard class="fretboard">
+                    <div #fretboard class="fretboard" [class.show-degrees]="showDegrees">
                       
                         <div id="fretNumber" class="d-flex fretnumber">
                             <ng-container *ngFor="let item of fretsNumber;">
-                                <h5> <span class="badge text-dark">{{item}}</span></h5>
+                                <h5> <span class="fret-badge">{{item}}</span></h5>
                             </ng-container>
                         
                         </div>
@@ -38,43 +99,81 @@
             
         </div>
         
-        <div class="row  pt-5">       
-          
-            <div class="col btn-group btn-group-justified btn-vertical mb-md-2" role="group" aria-label="First group" >
-                
-            
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="getScalesName('ionian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio1">JONICO</label>
-    
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="getScalesName('dorian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio2">DORICO</label>
-    
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (click)="getScalesName('phrygian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio3">FRIGIO</label>
-    
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (click)="getScalesName('lydian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio4">LIDIO</label>
-    
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" (click)="getScalesName('mixolydian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio5">MIXOLIDIO</label>
-    
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" (click)="getScalesName('aeolian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio6">EOLICO</label>
-    
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off" (click)="getScalesName('locrian')" >
-                <label class="btn btn-outline-secondary btn-lg btn-scales" for="btnradio7">LOCRIO</label>
-                
-        
-            </div> 
-          
-           
-            <div class="col btn-group btn-group-justified  btn-vertical" role="group" aria-label="Second group" >
-                <ng-container *ngFor="let item of notesSharp; index as i;">
-                    <input type="radio" class="btn-check" name="btnradionote" id="btnradionote{{8 + i}}" autocomplete="off"  (click)="setNote(item)">
-                    <label class="btn btn-outline-secondary btn-lg btn-note" for="btnradionote{{8 + i}}"> {{item}}</label>
-                </ng-container>
-               
-            </div>    
+        <div class="row pt-4">
+            <div class="col-12">
+
+                <!-- TÓNICA -->
+                <div class="selector-block">
+                    <div class="selector-block-label">TÓNICA</div>
+                    <div class="selector-grid">
+                        <ng-container *ngFor="let item of notesSharp; index as i;">
+                            <input type="radio" class="btn-check" name="btnradionote" id="btnradionote{{8 + i}}" autocomplete="off" (click)="setNote(item)">
+                            <label class="btn btn-outline-secondary" for="btnradionote{{8 + i}}">{{item}}</label>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- ESCALAS -->
+                <div class="selector-block">
+                    <div class="selector-block-label">ESCALAS</div>
+                    <div class="selector-grid">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" (click)="getScalesName('ionian')">
+                        <label class="btn btn-outline-secondary" for="btnradio1">JÓNICO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="getScalesName('dorian')">
+                        <label class="btn btn-outline-secondary" for="btnradio2">DÓRICO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (click)="getScalesName('phrygian')">
+                        <label class="btn btn-outline-secondary" for="btnradio3">FRIGIO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" (click)="getScalesName('lydian')">
+                        <label class="btn btn-outline-secondary" for="btnradio4">LIDIO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" (click)="getScalesName('mixolydian')">
+                        <label class="btn btn-outline-secondary" for="btnradio5">MIXOLIDIO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" (click)="getScalesName('aeolian')">
+                        <label class="btn btn-outline-secondary" for="btnradio6">EÓLICO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off" (click)="getScalesName('locrian')">
+                        <label class="btn btn-outline-secondary" for="btnradio7">LOCRIO</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio8" autocomplete="off" (click)="getScalesName('major pentatonic')">
+                        <label class="btn btn-outline-secondary" for="btnradio8">PENT. MAYOR</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio9" autocomplete="off" (click)="getScalesName('minor pentatonic')">
+                        <label class="btn btn-outline-secondary" for="btnradio9">PENT. MENOR</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio10" autocomplete="off" (click)="getScalesName('major blues')">
+                        <label class="btn btn-outline-secondary" for="btnradio10">BLUES MAYOR</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio11" autocomplete="off" (click)="getScalesName('minor blues')">
+                        <label class="btn btn-outline-secondary" for="btnradio11">BLUES MENOR</label>
+                    </div>
+                </div>
+
+                <!-- ARPEGIOS -->
+                <div class="selector-block">
+                    <div class="selector-block-label">ARPEGIOS</div>
+                    <div class="selector-grid">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio-arp1" autocomplete="off" (click)="getArpeggioName('arp-major')">
+                        <label class="btn btn-outline-secondary" for="btnradio-arp1">ARP. MAYOR</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio-arp2" autocomplete="off" (click)="getArpeggioName('arp-minor')">
+                        <label class="btn btn-outline-secondary" for="btnradio-arp2">ARP. MENOR</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio-arp3" autocomplete="off" (click)="getArpeggioName('arp-dom7')">
+                        <label class="btn btn-outline-secondary" for="btnradio-arp3">7 DOMINANTE</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio-arp4" autocomplete="off" (click)="getArpeggioName('arp-maj7')">
+                        <label class="btn btn-outline-secondary" for="btnradio-arp4">maj7 MAYOR</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio-arp5" autocomplete="off" (click)="getArpeggioName('arp-m7')">
+                        <label class="btn btn-outline-secondary" for="btnradio-arp5">7b MENOR</label>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

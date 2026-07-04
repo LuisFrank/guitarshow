@@ -1,19 +1,23 @@
-<button class="menu-toggler" (click)="toogleMenu()">
-</button>
-<div class="menu position-fixed" [ngClass]="{'site-menu-show' : showMenu}">   
-   <ul>
-        <li>
-            <a href="#GuitarTune" class="secondary">Afinador </a>
-        </li>
-        <li>
-            <a href="#GuitarScales"> Escalas </a>
-        </li>
-        <li>
-            <a href="#GuitarProgresions"> Progresiones </a>
-        </li>
-        <li>
-            <a href="#Metronome">Metrónomo </a>
-            <!-- <p>Backing tracks</p> -->
-        </li>
+<nav class="top-nav">
+  <div class="nav-inner">
+
+    <div class="nav-brand">
+      <div class="brand-badge">G</div>
+      <span class="brand-name">Guitar<span class="brand-accent">Show</span></span>
+    </div>
+
+    <ul class="nav-links" [ngClass]="{'nav-open': showMenu}">
+      <li><a href="#GuitarTune"        (click)="showMenu=false">Afinador</a></li>
+      <li><a href="#GuitarScales"      (click)="showMenu=false">Escalas</a></li>
+      <li><a href="#GuitarProgresions" (click)="showMenu=false">Progresiones</a></li>
+      <li><a href="#Metronome"         (click)="showMenu=false">Metrónomo</a></li>
     </ul>
-</div>
+
+    <button class="nav-toggle" (click)="toogleMenu()" [class.open]="showMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</nav>

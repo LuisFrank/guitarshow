@@ -1,13 +1,130 @@
-/* You can add global styles to this file, and also import other style files */
-// :root{
-
-
-// $font-title-style: 'Permanent Marker', cursive;
-// // --font-subtitle-style: #fff;
-// // --font-text-style: 
-// }
-
-
-    // --font-subtitle-style: #fff;
-    // --font-text-style: 
 @import "vars";
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 1rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+  font-family: var(--font-p-style);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text) !important;
+}
+
+/* ── Section title shared style ─────────────── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-p-style);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 1px;
+  }
+}
+
+.section-heading {
+  font-family: var(--font-subtitle-style);
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text) !important;
+  margin: 0 0 2rem;
+}
+
+/* ── Card style used by each tool section ────── */
+.tool-card {
+  background: linear-gradient(150deg, var(--color-surface) 0%, var(--color-surface-2) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  box-shadow:
+    0 0 0 1px var(--color-border-mid),
+    0 24px 64px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--color-border-mid);
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * { position: relative; z-index: 1; }
+}
+
+/* ── Bootstrap table dark ─────────────────────── */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--color-muted-light);
+  --bs-table-border-color: rgba(201, 168, 76, 0.12);
+  color: var(--color-muted-light) !important;
+}
+
+.table > :not(caption) > * > * {
+  background-color: transparent;
+  border-bottom-color: rgba(201, 168, 76, 0.1);
+  color: inherit;
+}
+
+.table thead th {
+  color: var(--color-accent) !important;
+  border-bottom-color: var(--color-border) !important;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Bootstrap btn-outline override ─────────── */
+.btn-outline-secondary {
+  color: var(--color-muted);
+  border-color: rgba(201, 168, 76, 0.25);
+  background: transparent;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--color-accent-dim) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+}
+
+.btn-check:checked + .btn-outline-secondary,
+.btn-check:active + .btn-outline-secondary {
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: #000 !important;
+  font-weight: 700;
+}
+
+/* ── Scrollbar ────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+
+@media (max-width: 768px) {
+  h2 { font-size: 1.5rem !important; }
+}

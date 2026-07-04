@@ -1,111 +1,65 @@
-<div class="container-fluid pb-5" id="GuitarProgresions">
+<div class="container-fluid py-5" id="GuitarProgresions">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h2 class="text-center guitarProgressions-title p2 text-break">PROGRESIONES DE GUITARRA</h2>
+                <p class="section-label justify-content-center">Teoría musical</p>
+                <h2 class="text-center guitarProgressions-title text-break">PROGRESIONES DE GUITARRA</h2>
             </div>
            <div class="col-md-12">
                 <div class="row">
-                        <!-- <p>Los modos son colores o escalas distintas
-                        de la escala mayor y menor, si bien tienen
-                        un patrón común que las conecta. El nombre
-                        "modos griegos", por cierto, es erróneo y no
-                        debiese utilizarse demasiado.</p>
-                        <p>Estas nuevas escalas nos pueden entregar
-                        colores muy característicos y apropiados
-                        para delinear otras sensaciones: entre lo mayor
-                        y lo menor, obtendremos todo un mundo
-                        intermedio disponible para expresar nuestro
-                        mundo sonoro.
-                        </p>               -->
-                </div>
-                <div class="row">
                     <div class="mt-4">
-                    <div class="table-responsive">
-                        <table class="table table-font table-borderless">
-                            <thead>
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">I</th>
-                                    <th scope="col">II</th>
-                                    <th scope="col">III</th>
-                                    <th scope="col">IV</th>
-                                    <th scope="col">V</th>
-                                    <th scope="col">VI</th>
-                                    <th scope="col">VII</th>
-                                </tr>                                        
-                            </thead>
-                            <tbody>                             
-                            <tr *ngFor="let progression of progressionsList ;let i= index"  id="scalename_{{i}}" 
-                                    [ngClass]="{'scale-name  table-secondary': current_scale_index === i &&
-                                                                                current_ScaleName !== '' &&
-                                                                                current_ScaleName !== undefined && 
-                                                                                current_Note !== '' &&
-                                                                                current_Note !== undefined}">
-                                <td scope="row">{{progression.name2 | uppercase}}</td>
-                                <td>{{progression.roman_1}}</td>
-                                <td>{{progression.roman_2}}</td>
-                                <td>{{progression.roman_3}}</td>
-                                <td>{{progression.roman_4}}</td>
-                                <td>{{progression.roman_5}}</td>
-                                <td>{{progression.roman_6}}</td>
-                                <td>{{progression.roman_7}}</td>
-                            
-                                        
-                                        
-                                    <!-- <div class="col-md-3 mb-3 img"> 
-                                        <img src="{{product.picture}}" alt={{product.name}} class="img"/>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <h3 class="product-name">{{product.name}}</h3>
-                                        <p> {{product.description}}</p>
-                                    </div>
-                                    <div class="col-md-2 price">
-                                        {{product.price}}
-                                    </div> -->
-                            </tr>
-                            </tbody>
-                        </table>
-                        
-                    </div>
+
+                        <!-- Arpeggio card -->
+                        <div *ngIf="isArpeggioMode && arpeggioNotes.length" class="arpeggio-card mb-4">
+                            <div class="arpeggio-card-label">Arpegio</div>
+                            <div class="arpeggio-card-title">{{ arpeggioLabel }}</div>
+                            <div class="arpeggio-notes">
+                                <div *ngFor="let n of arpeggioNotes" class="arpeggio-note" [ngClass]="'arp-degree-' + n.degree">
+                                    <span class="arp-note-name">{{ n.note }}</span>
+                                    <span class="arp-degree-label">
+                                        {{ n.degree === 1 ? 'Tónica' : n.degree === 3 ? '3ra' : n.degree === 5 ? '5ta' : '7ma' }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-font table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">I</th>
+                                        <th scope="col">II</th>
+                                        <th scope="col">III</th>
+                                        <th scope="col">IV</th>
+                                        <th scope="col">V</th>
+                                        <th scope="col">VI</th>
+                                        <th scope="col">VII</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let progression of progressionsList; let i = index" id="scalename_{{i}}"
+                                        [ngClass]="{'scale-name': !isArpeggioMode &&
+                                                                    current_scale_index === i &&
+                                                                    current_ScaleName !== '' &&
+                                                                    current_ScaleName !== undefined &&
+                                                                    current_Note !== '' &&
+                                                                    current_Note !== undefined}">
+                                        <td scope="row">{{progression.name2 | uppercase}}</td>
+                                        <td>{{progression.roman_1 || '-'}}</td>
+                                        <td>{{progression.roman_2 || '-'}}</td>
+                                        <td>{{progression.roman_3 || '-'}}</td>
+                                        <td>{{progression.roman_4 || '-'}}</td>
+                                        <td>{{progression.roman_5 || '-'}}</td>
+                                        <td>{{progression.roman_6 || '-'}}</td>
+                                        <td>{{progression.roman_7 || '-'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            
-           
-                <!-- <div class="row list-categories">
-                    <div class="col-12 text-center">
-                        <span (click)="activeTab=1"  [ngClass]="{'active': 1 == activeTab}" class="categories pt-1">
-                            BREAKFAST
-                        </span>
-                        <span  (click)="activeTab=2"  [ngClass]="{'active': 2 == activeTab}" class="categories  pt-1">
-                            BRUNCH
-                        </span>
-                        <span  (click)="activeTab=3"  [ngClass]="{'active': 3 == activeTab}" class="categories  pt-1">
-                            DINNER
-                        </span>
-                    </div>
-
-                </div> -->
-                <!-- <div *ngFor="let product of productsList" [ngClass]="{'d-none': product.category != activeTab}" class="product">
-
-                    <div class="row">
-                        <div class="col-md-3 mb-3 img"> 
-                            <img src="{{product.picture}}" alt={{product.name}} class="img"/>
-                        </div>
-                        <div class="col-md-7">
-                            <h3 class="product-name">{{product.name}}</h3>
-                            <p> {{product.description}}</p>
-                        </div>
-                        <div class="col-md-2 price">
-                            {{product.price}}
-                        </div>
-                    </div>
-                </div> -->
-           
-
-           
            </div>
         </div>
     </div>
-    
 </div>

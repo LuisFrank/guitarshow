@@ -4,6 +4,7 @@ import { Renderer2, ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Scale, Distance, Note } from "tonal";
+import { Scale as TonalScale, Chord as TonalChord } from "@tonaljs/tonal";
 import { SocialFeedService } from './social-feed.service';
 
 
@@ -33,10 +34,48 @@ export class SocialFeedComponent implements OnInit {
   accidentals = 'flats';
   accidentals_sharps = 'sharps';
 
-  guitarTuning = [4,11,7,2,9,4];
+  tunings: any = {
+    standard: { label: 'Standard (EADGBe)', values: [4, 11, 7, 2, 9, 4] },
+    openD:    { label: 'Open D (DADGAd)',   values: [2, 9, 6, 2, 9, 2] },
+    openE:    { label: 'Open E (EBE G#Be)', values: [4, 11, 8, 4, 11, 4] },
+    openG:    { label: 'Open G (DGDGBd)',   values: [2, 11, 7, 2, 7, 2] },
+  };
+  selectedTuning = 'standard';
+  tuningKeys = Object.keys(this.tunings);
+  guitarTuning = [4, 11, 7, 2, 9, 4];
 
   allNotes:any;
   showMultipleNotes = false;
+  isArpeggio = false;
+  showAllNoteNames = false;
+  showDegrees = false;
+
+  private readonly scaleLabels: { [k: string]: string } = {
+    'ionian': 'Jónico', 'dorian': 'Dórico', 'phrygian': 'Frigio',
+    'lydian': 'Lidio', 'mixolydian': 'Mixolidio', 'aeolian': 'Eólico',
+    'locrian': 'Locrio', 'major pentatonic': 'Pent. Mayor',
+    'minor pentatonic': 'Pent. Menor', 'major blues': 'Blues Mayor',
+    'minor blues': 'Blues Menor', 'arp-major': 'Arp. Mayor',
+    'arp-minor': 'Arp. Menor', 'arp-dom7': '7 Dominante',
+    'arp-maj7': 'maj7 Mayor', 'arp-m7': '7b Menor',
+  };
+
+  getSelectionLabel(): string {
+    return this.scaleLabels[this.currentScaleName] || this.currentScaleName || '';
+  }
+
+  toggleShowDegrees() {
+    this.showDegrees = !this.showDegrees;
+  }
+
+  degreeHighlights: { [key: number]: boolean } = { 1: true, 3: false, 5: false, 7: false };
+  readonly degreeColors: { [key: number]: string } = {
+    1: '#c9a84c',
+    3: '#10b981',
+    5: '#818cf8',
+    7: '#f472b6',
+  };
+  private readonly highlightClasses = ['note-show-root','note-show','note-degree-3','note-degree-5','note-degree-7'];
 
 
   @ViewChild('fretboard',{static:true}) fretboard:any;
@@ -71,6 +110,32 @@ export class SocialFeedComponent implements OnInit {
   }
 
 
+
+  changeTuning(tuningKey: string) {
+    this.selectedTuning = tuningKey;
+    this.guitarTuning = this.tunings[tuningKey].values;
+
+    // Clear current fretboard DOM nodes (keep the fret numbers div)
+    const fretboardEl = this.fretboard.nativeElement;
+    const children = Array.from(fretboardEl.children) as HTMLElement[];
+    children.forEach((child: HTMLElement) => {
+      if (!child.id || child.id !== 'fretNumber') {
+        this.renderer.removeChild(fretboardEl, child);
+      }
+    });
+
+    this.setupFretBoard();
+
+    if (this.showAllNoteNames) {
+      const allNotes = document.querySelectorAll('.note-fret');
+      allNotes.forEach((el: any) => {
+        this.highlightClasses.forEach((c: string) => el.classList.remove(c));
+        el.classList.add('note-show');
+      });
+    } else if (this.currentNote && this.currentScaleName) {
+      this.getScales();
+    }
+  }
 
   setupFretBoard(){
       // this.renderer.setProperty(this.root,'note-dot-opacity',this.opacity);
@@ -192,73 +257,142 @@ export class SocialFeedComponent implements OnInit {
     }
  }
 
+ toggleDegree(degree: number) {
+    this.degreeHighlights[degree] = !this.degreeHighlights[degree];
+    if (this.currentNote && this.currentScaleName) {
+      this.getScales();
+    }
+  }
+
  setNote(noteName:any){
     this.currentNote = noteName;
     this.getScales();
  }
 
  getScalesName(scaleName:any){
-
+  this.isArpeggio = false;
   this.currentScaleName = scaleName;
-      this.getScales();
-
+  this.getScales();
  }
 
- getScales(){
-   // progression.fromRomanNumerals("C", ["IMaj7", "IIm7", "V7"]);
-  //  this.socialFeedService.changeCurrentNoteAndScale(this.currentNote,this.currentScaleName);
+ getArpeggioName(type: string) {
+  this.isArpeggio = true;
+  this.currentScaleName = type;
+  this.getScales();
+ }
 
+ clearFretboard() {
+    this.currentNote = undefined;
+    this.currentScaleName = undefined;
+    this.isArpeggio = false;
+    this.showAllNoteNames = false;
+    this.showDegrees = false;
+
+    document.querySelectorAll('input[name="btnradio"], input[name="btnradionote"]')
+      .forEach((r: any) => { r.checked = false; });
+
+    const allNotes = document.querySelectorAll('.note-fret');
+    allNotes.forEach((el: any) => {
+      this.highlightClasses.forEach((c: string) => el.classList.remove(c));
+      el.classList.add('note-hide');
+      el.removeAttribute('data-degree');
+    });
+
+    this.socialFeedService.changeCurrentNote('');
+    this.socialFeedService.changeCurrentScaleName('');
+  }
+
+  toggleAllNoteNames() {
+    this.showAllNoteNames = !this.showAllNoteNames;
+    const allNotes = document.querySelectorAll('.note-fret');
+
+    if (this.showAllNoteNames) {
+      allNotes.forEach((el: any) => {
+        this.highlightClasses.forEach((c: string) => el.classList.remove(c));
+        el.classList.add('note-show');
+      });
+    } else {
+      allNotes.forEach((el: any) => {
+        this.highlightClasses.forEach((c: string) => el.classList.remove(c));
+        el.classList.add('note-hide');
+      });
+      if (this.currentNote && this.currentScaleName) {
+        this.getScales();
+      }
+    }
+  }
+
+ getScales() {
     this.socialFeedService.changeCurrentNote(this.currentNote);
     this.socialFeedService.changeCurrentScaleName(this.currentScaleName);
-  // console.log("Scale names.", Scale.names(false));
-  // console.log("currentNote.",this.currentNote);
-  // console.log("currentScaleName.",this.currentScaleName);
-  // console.log("Scale names.",this.currentNote + " "+ this.currentScaleName);
-    if(this.currentNote != undefined && this.currentScaleName != undefined){
 
-      // console.log("Scale notes and name.",this.currentNote + " "+ this.currentScaleName);
-      // console.log("Scale notes.", Scale.notes(this.currentNote + " "+ this.currentScaleName));
-      this.allNotes = document.querySelectorAll('.note-fret');
+    if (this.showAllNoteNames) return;
+    if (this.currentNote == undefined || this.currentScaleName == undefined) return;
 
-      // for (var element of this.allNotes) {
+    this.allNotes = document.querySelectorAll('.note-fret');
 
-      for (let index = 0; index < this.allNotes.length; index++) {
+    // Reset all visible note classes
+    for (let i = 0; i < this.allNotes.length; i++) {
+      const el = this.allNotes[i];
+      this.highlightClasses.forEach(c => el.classList.remove(c));
+      el.classList.add('note-hide');
+      el.removeAttribute('data-degree');
+    }
 
-        if( this.allNotes[index].classList.contains('note-show')){
-          this.allNotes[index].classList.remove("note-show");
-          this.allNotes[index].classList.add("note-hide");
-        }else if( this.allNotes[index].classList.contains('note-show-root')){
-          this.allNotes[index].classList.remove("note-show-root");
-          this.allNotes[index].classList.add("note-hide");
+    // Build chroma → degree map
+    const chromaToDegree = new Map<number, number>();
+
+    if (this.isArpeggio) {
+      const suffixes: { [k: string]: string } = {
+        'arp-major': ' major', 'arp-minor': ' minor',
+        'arp-dom7': '7', 'arp-maj7': 'maj7', 'arp-m7': 'm7',
+      };
+      const suffix = suffixes[this.currentScaleName];
+      if (suffix !== undefined) {
+        const chordData = TonalChord.get(this.currentNote + suffix);
+        if (chordData.intervals && chordData.notes) {
+          chordData.notes.forEach((noteName: string, i: number) => {
+            const chroma = Note.chroma(noteName);
+            const degree = parseInt(chordData.intervals[i]);
+            if (chroma != null && !isNaN(degree)) chromaToDegree.set(chroma, degree);
+          });
         }
       }
-
-
-      for (let index = 0; index < this.allNotes.length; index++) {
-
-        // console.log("scale", Scale.notes(this.currentNote + " "+ this.currentScaleName));
-        Scale.notes(this.currentNote + " "+ this.currentScaleName).forEach((noteName, secondIndex) => {
-          // console.log("Note.chroma",Note.chroma(noteName));
-          // console.log("dataset.chroma",this.allNotes[index].dataset.chroma);
-          if(Number(this.allNotes[index].dataset.chroma) === Note.chroma(noteName)){
-            if(secondIndex == 0){
-              this.allNotes[index].classList.add("note-show-root");
-              this.allNotes[index].classList.remove("note-hide");
-            }else{
-              this.allNotes[index].classList.add("note-show");
-              this.allNotes[index].classList.remove("note-hide");
-            }
-
-          }
-
-
-       });
-
+    } else {
+      const scaleData = TonalScale.get(this.currentNote + ' ' + this.currentScaleName);
+      if (scaleData.intervals && scaleData.notes) {
+        scaleData.notes.forEach((noteName: string, i: number) => {
+          const chroma = Note.chroma(noteName);
+          const degree = parseInt(scaleData.intervals[i]);
+          if (chroma != null && !isNaN(degree)) chromaToDegree.set(chroma, degree);
+        });
       }
     }
 
+    // Apply degree-specific classes
+    for (let i = 0; i < this.allNotes.length; i++) {
+      const el = this.allNotes[i];
+      const noteChroma = Number(el.dataset['chroma']);
 
- }
+      if (!chromaToDegree.has(noteChroma)) continue;
+
+      const degree = chromaToDegree.get(noteChroma)!;
+      el.classList.remove('note-hide');
+      el.setAttribute('data-degree', String(degree));
+
+      if (degree === 1 && this.degreeHighlights[1]) {
+        el.classList.add('note-show-root');
+      } else if (degree === 3 && this.degreeHighlights[3]) {
+        el.classList.add('note-degree-3');
+      } else if (degree === 5 && this.degreeHighlights[5]) {
+        el.classList.add('note-degree-5');
+      } else if (degree === 7 && this.degreeHighlights[7]) {
+        el.classList.add('note-degree-7');
+      } else {
+        el.classList.add('note-show');
+      }
+    }
+  }
 
 
 

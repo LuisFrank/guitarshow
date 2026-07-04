@@ -1,8 +1,9 @@
-<div class="container-fluid pb-5" id="GuitarTune">
+<div class="container-fluid py-5" id="GuitarTune">
     <div class="container">
         <div class="row">
             <div class="col-12">
-            <h2 class="featuredFood-title text-center p2">
+            <p class="section-label justify-content-center">Herramienta</p>
+            <h2 class="featuredFood-title text-center">
                 AFINADOR DE GUITARRA
                 <!-- <div class="d-block featuredFood-title-subtitle mt-4">
                     Afina tu guitarra online
@@ -104,6 +105,9 @@
                     </div>
                     <div class="start-stop-tuner" (click)="startTuner()">
                         {{startStop_tuner}}
+                    </div>
+                    <div class="tuner-error" *ngIf="tunerError">
+                        ⚠ {{tunerError}}
                     </div>
                    
                 </div>

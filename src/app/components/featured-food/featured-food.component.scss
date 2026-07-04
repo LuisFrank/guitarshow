@@ -1,109 +1,75 @@
-#GuitarTune{
-    background-color: #f8f9fa;
+#GuitarTune {
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
 
-    .h-400{
-        height: 400px;
-    }
+  .section-label { /* eyebrow tag */ }
 
-    .bg-white{
-        background-color: white;
-    }
-    .featuredFood-title{
-        margin: 2em 0 1em 0;
-        font-size: 50px;
-        color: #000;
-        // font-family: "Playfair Display", serif;
-        font-family: var(--font-subtitle-style);
+  .featuredFood-title {
+    font-family: var(--font-subtitle-style);
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text) !important;
+    margin: 0 0 2.5rem;
+  }
 
-        .featuredFood-title-subtitle{
-            font-size: 20px;
-            font-weight: 300;
-            font-family: roboto, sans-serif;
-
-        }
-    }
-    .featuredFood-item{
-        font-family: "Playfair Display", serif;
-        .featuredFood-item-img-wrapper{
-            height: 400px;
-        }
-
-        h3{
-            font-size: 14px;
-            color: #ff7a5c;
-            text-transform: uppercase;
-            letter-spacing: .2em;
-        }
-
-        h4{
-          
-            line-height: 1.5;
-            font-size: 20px;
-            margin-bottom: 30px;
-            font-weight: 300;
-            
-        }
-
-        img{
-
-        }
-
-        a{
-            margin-top:  3em;
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .featuredFood-item-description{
-            font-family: roboto, sans-serif;
-            font-size: 20px;
-            line-height: 1.8;
-            font-weight: 300;
-            color: gray;
-            
-        }
-      
-    }
+  .tuner-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
 }
 
-#bar {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    width: 40%;
-    height: 40%;
-    -webkit-transition: 0.1s ease all;
+/* Canvas */
+#draws {
+  display: flex;
+  justify-content: center;
+
+  canvas {
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.6);
+  }
 }
 
-.p {
-    background-color: blue;
-    height: 100%;
-    width: 10%;
-    float: left;
+/* START/STOP button */
+.start-stop-tuner {
+  width: 82px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--color-accent);
+  color: #0f0804;
+  border-radius: 50%;
+  margin: 1.5rem auto 0;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 24px rgba(201, 168, 76, 0.4);
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 40px rgba(201, 168, 76, 0.65);
+  }
 }
 
-// .p5Canvas{
-//     width: 100%!important;
-//     height: 100%!important;
-// }
-
-
-.start-stop-tuner{
-    width: 100px;
-    height: 30px;
-    font-size: 0.7em;
-    text-align: center;
-    background: #6c757d; 
-    // background: #fa545c;
-    // border-radius: 50%;
-    color: #fff;
-    line-height: 30px;
-    margin: 0 auto;
-    cursor: pointer;
-
-}
-
-.start-stop-tuner:hover{
-    background: #828c96;
+/* Tuner error message */
+.tuner-error {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  background: rgba(244, 114, 182, 0.08);
+  color: #f472b6;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }

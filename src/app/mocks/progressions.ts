@@ -76,6 +76,50 @@ export default [
         roman_5: "bV7maj7",
         roman_6: "bVI7",
         roman_7: "bVIIm7"
+    },
+    {
+        name: "major pentatonic",
+        name2: "pentatónica mayor",
+        roman_1: "Imaj7",
+        roman_2: "IIm7",
+        roman_3: "IIIm7",
+        roman_4: "-",
+        roman_5: "V7",
+        roman_6: "VIm7",
+        roman_7: "-"
+    },
+    {
+        name: "minor pentatonic",
+        name2: "pentatónica menor",
+        roman_1: "Im7",
+        roman_2: "-",
+        roman_3: "bIIImaj7",
+        roman_4: "IVm7",
+        roman_5: "Vm7",
+        roman_6: "-",
+        roman_7: "bVII7"
+    },
+    {
+        name: "major blues",
+        name2: "blues mayor",
+        roman_1: "I7",
+        roman_2: "IIm7",
+        roman_3: "bIIIm7",
+        roman_4: "-",
+        roman_5: "V7",
+        roman_6: "VIm7",
+        roman_7: "-"
+    },
+    {
+        name: "minor blues",
+        name2: "blues menor",
+        roman_1: "I7",
+        roman_2: "-",
+        roman_3: "bIIIm7",
+        roman_4: "IVm7",
+        roman_5: "bVm7b5",
+        roman_6: "Vm7",
+        roman_7: "bVII7"
     }
 
 ]

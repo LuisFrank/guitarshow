@@ -1,47 +1,26 @@
-img{
-    max-width: 100%;
+.main-container {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  padding-top: 0; /* hero has its own nav-height padding */
 }
 
-.title{
-    margin: auto;
-    left: 0;
-    right: 0;
-    width: 110px;
-    margin-top: 40px;
-    border: 2px solid black;
-    font-family: "Open Sans", serif;
-    // font-family: "Bebas Neue", cursive;
-    font-size:  1.2rem;
+img { max-width: 100%; }
+
+p {
+  font-family: var(--font-p-style);
+  color: var(--color-muted);
 }
 
-p{
- 
-    text-align: left!important;
-    font-family: var(--font-p-style);
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text) !important;
 }
 
+/* Section padding rhythm */
+section, [id^="Guitar"], #Metronome {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
 
 @media (max-width: 768px) {
-    h2 {font-size: 2em!important;
-    }
-  }
-  
-//   @media (max-width: 604px) {
-//     h2 {font-size: .8em!important;}
-//   }
-  
-//   @media (max-width: 541px) {
-//     h2 {font-size: .7em!important;}
-//   }
-  
-//   @media (max-width: 478px) {
-//     h2 {font-size: .6em!important;}
-//   }
-  
-//   @media (max-width: 413px) {
-//     h2 {font-size: .5em!important;}
-//   }
-  
-//   @media (max-width: 350px) {
-//     h2 {font-size: .45em!important;}
-//   }
+  h2 { font-size: 1.5rem !important; }
+}

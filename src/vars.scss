@@ -1,9 +1,26 @@
-:root{
-   --font-title-style: 'IM Fell English', serif;
-   --font-subtitle-style: 'IM Fell English', serif;
-   --font-p-style: 'Overpass', sans-serif;
-   // --font-p-style: 'IM Fell English', serif;
-   // --font-p-style: 'Ubuntu', sans-serif;  
-   // --font-p-style: 'Ubuntu', sans-serif;  
-  
+:root {
+  --font-title-style:    'IM Fell English', serif;
+  --font-subtitle-style: 'IM Fell English', serif;
+  --font-p-style:        'Overpass', sans-serif;
+
+  /* Warm dark palette — inspired by aged wood & studio lighting */
+  --color-bg:          #0f0804;
+  --color-surface:     #1d1308;
+  --color-surface-2:   #261a0a;
+  --color-surface-3:   #2e2010;
+
+  --color-border:      rgba(201, 168, 76, 0.28);
+  --color-border-mid:  rgba(201, 168, 76, 0.14);
+
+  --color-accent:      #c9a84c;
+  --color-accent-bright: #f0c060;
+  --color-accent-dim:  rgba(201, 168, 76, 0.12);
+
+  --color-cyan:        #06b6d4;
+
+  --color-text:        #f0e6c8;
+  --color-muted:       #7a6840;
+  --color-muted-light: #a08c5a;
+
+  --nav-height: 64px;
 }

@@ -1,146 +1,163 @@
-#GuitarProgresions{
+#GuitarProgresions {
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
 
-    .guitarProgressions-title{
-        margin: 2em 0 1em 0;
-        font-size: 50px;
-        color: #000;
-        font-family: var(--font-subtitle-style);
+  .guitarProgressions-title {
+    font-family: var(--font-subtitle-style);
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text) !important;
+    margin: 0 0 0.4rem;
+  }
 
-        // .featuredFood-title-subtitle{
-        //     font-size: 20px;
-        //     font-weight: 300;
-        //     font-family: roboto, sans-serif;
+  .table-responsive {
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  }
 
-        // }
-    }
+  .table-font {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: var(--color-muted-light) !important;
 
-    background-color: #f8f9fa!important;
-    // padding: 2em 0;
-    // font-family: "Playfair Display", serif;
+    thead tr {
+      background: var(--color-surface-2);
 
-    // h2{
-    //     font-size: 50px;
-    // }
-    h3{
-        font-size: 20px;        
-        color: gray;
-        font-family: "Open Sans", Arial, sans-serif;
-        font-weight: 00;
-    }
-
-    .sub-title{
-        margin-bottom: 5em;
-    }
-
-    span{
-        // color: #ff7a5c;
-        // background: none;
-        // border-bottom: 2px solid #ff7a5c;
-        // font-weight: 600;
-        // font-size: 16px;
-        // text-decoration: uppercase;
-       
-        display: inline-block;
-        color: gray;
-        font-size: 16px;
+      th {
+        color: var(--color-accent) !important;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        letter-spacing: .2em;
-        border-bottom: 2px solid transparent;
-        padding-left: 0;
-        padding-right: 0;
-        margin: 0 10px;
-        font-weight: 800;
-      
-        border-bottom: 2px solid #e6e6e6;
-
-        
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid var(--color-border) !important;
+        white-space: nowrap;
+      }
     }
 
-    span.active{       
-            color: #ff7a5c;
-            background: none;
-            border-bottom: 2px solid #ff7a5c;
+    tbody tr {
+      background: var(--color-surface);
+      border-color: rgba(201, 168, 76, 0.1);
+      transition: background 0.18s ease;
+
+      td {
+        padding: 0.6rem 1rem;
+        vertical-align: middle;
+        border-color: rgba(201, 168, 76, 0.08) !important;
+        color: var(--color-muted-light) !important;
+      }
+
+      td:first-child {
+        font-size: 0.65rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-muted) !important;
+        white-space: nowrap;
+        min-width: 150px;
+        border-right: 1px solid rgba(201, 168, 76, 0.12);
+      }
+
+      &:nth-child(even) {
+        background: var(--color-surface-2);
+      }
+
+      &:hover td {
+        background-color: var(--color-accent-dim) !important;
+        color: var(--color-text) !important;
+      }
     }
 
-    span.categories{
-  
-        padding: 0.5rem 1rem;
+    tbody tr.scale-name {
+      background: rgba(201, 168, 76, 0.08) !important;
+      box-shadow: inset 3px 0 0 var(--color-accent);
+
+      td {
+        color: var(--color-accent) !important;
+        font-weight: 600;
+      }
+
+      td:first-child {
+        color: var(--color-accent) !important;
+      }
+    }
+  }
+}
+
+/* ── Arpeggio chord card ──────────────── */
+.arpeggio-card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+
+  .arpeggio-card-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .arpeggio-card-title {
+    font-size: 1.4rem;
+    font-family: var(--font-subtitle-style);
+    color: var(--color-accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .arpeggio-notes {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .arpeggio-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .arp-note-name {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
     }
 
-
-
-    .list-categories{
-        margin-bottom: 7em !important;
-    }
-    
-    // p{
-    //     display: block;
-    //     margin-block-start: 1em;
-    //     margin-block-end: 1em;
-    //     margin-inline-start: 0px;
-    //     margin-inline-end: 0px;
-    //     font-family: "Open Sans",Arial,sans-serif;
-    //     font-size: 20px;
-    //     line-height: 1.8;
-    //     font-weight: 300;
-    //     color: gray;
-    // }
-
-    .product{
-        border-bottom: 1px dotted #ccc;
-        float: left;
-        width: 100%;
-        padding-bottom: 30px;
-        margin-bottom: 30px;
+    .arp-degree-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
     }
 
-    .product-name{
-        color: #000;
+    &.arp-degree-1 .arp-note-name {
+      background: #c9a84c;
+      box-shadow: 0 0 18px rgba(201, 168, 76, 0.6);
     }
-
-    .price{
-        color: #ff7a5c;
-        font-size: 20px;
+    &.arp-degree-3 .arp-note-name {
+      background: #10b981;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.6);
     }
-
-    .img{
-        border-radius: 10%;
+    &.arp-degree-5 .arp-note-name {
+      background: #818cf8;
+      box-shadow: 0 0 18px rgba(129, 140, 248, 0.6);
     }
-
-    .border-element{
-        padding: 1.5rem;
-        margin-right: 0;
-        margin-left: 0;
-        border-width: 1px;
-        border-top-left-radius: .25rem;
-        border-top-right-radius: .25rem;
+    &.arp-degree-7 .arp-note-name {
+      background: #f472b6;
+      box-shadow: 0 0 18px rgba(244, 114, 182, 0.6);
     }
-
-    .table-font{
-
-        // th{
-
-        // }
-        color: gray;
-        // font-family: "Open Sans", Arial, sans-serif;
-        // font-family: "Playfair Display", serif;
-        font-size: 20px;
-    }
-
-    .scale-name{
-        font-size: 30px;
-        transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-        transition: transform .5s;
-        --bs-table-bg: #6c757d;
-        color: #fff;
-        background-color: #6c757d;
-        // border-color: #6c757d;
-        // background: #6c757d;
-        // color: #fff;
-        // border-width: 1px;
-        // border-top-left-radius: .25rem;
-        // border-top-right-radius: .25rem;
-
-    }
-  
+  }
 }
