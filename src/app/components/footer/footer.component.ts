@@ -9,7 +9,8 @@ import {  faInstagram, faInstagramSquare  } from '@fortawesome/free-brands-svg-i
 export class FooterComponent implements OnInit {
   faInstagram = faInstagram;
   faInstagramSquare = faInstagramSquare;
-  constructor() { 
+  currentYear = new Date().getFullYear();
+  constructor() {
 
   }
 

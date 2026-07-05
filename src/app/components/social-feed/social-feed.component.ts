@@ -4,8 +4,16 @@ import { Renderer2, ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Scale, Distance, Note } from "tonal";
-import { Scale as TonalScale, Chord as TonalChord } from "@tonaljs/tonal";
+import { Scale as TonalScale, Chord as TonalChord, Progression } from "@tonaljs/tonal";
 import { SocialFeedService } from './social-feed.service';
+import progressions from '../../mocks/progressions';
+
+interface ChordDiagram {
+  positionLabel: string;
+  markers: string[];
+  grid: (({ degree: number } | null)[])[];
+  stringLabels: string[];
+}
 
 
 
@@ -35,14 +43,23 @@ export class SocialFeedComponent implements OnInit {
   accidentals_sharps = 'sharps';
 
   tunings: any = {
-    standard: { label: 'Standard (EADGBe)', values: [4, 11, 7, 2, 9, 4] },
-    openD:    { label: 'Open D (DADGAd)',   values: [2, 9, 6, 2, 9, 2] },
-    openE:    { label: 'Open E (EBE G#Be)', values: [4, 11, 8, 4, 11, 4] },
-    openG:    { label: 'Open G (DGDGBd)',   values: [2, 11, 7, 2, 7, 2] },
+    standard: { label: 'Standard (E-A-D-G-B-e)', values: [4, 11, 7, 2, 9, 4] },
+    openD:    { label: 'Open D (D-A-D-F#-A-d)',  values: [2, 9, 6, 2, 9, 2] },
+    openE:    { label: 'Open E (E-B-E-G#-B-e)',  values: [4, 11, 8, 4, 11, 4] },
+    openG:    { label: 'Open G (D-G-D-G-B-d)',   values: [2, 11, 7, 2, 7, 2] },
   };
   selectedTuning = 'standard';
   tuningKeys = Object.keys(this.tunings);
   guitarTuning = [4, 11, 7, 2, 9, 4];
+
+  progressionRomanLabels = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+  progressionChordNames: string[] = [];
+  isProgressionChord = false;
+  currentChordName: string | undefined;
+  currentDegree: number | undefined;
+
+  chordDiagrams: ChordDiagram[] = [];
+  chordDiagramLabel = '';
 
   allNotes:any;
   showMultipleNotes = false;
@@ -68,7 +85,7 @@ export class SocialFeedComponent implements OnInit {
     this.showDegrees = !this.showDegrees;
   }
 
-  degreeHighlights: { [key: number]: boolean } = { 1: true, 3: false, 5: false, 7: false };
+  degreeHighlights: { [key: number]: boolean } = { 1: false, 3: false, 5: false, 7: false };
   readonly degreeColors: { [key: number]: string } = {
     1: '#c9a84c',
     3: '#10b981',
@@ -266,19 +283,153 @@ export class SocialFeedComponent implements OnInit {
 
  setNote(noteName:any){
     this.currentNote = noteName;
+    this.updateProgressionChordNames();
     this.getScales();
  }
 
  getScalesName(scaleName:any){
   this.isArpeggio = false;
   this.currentScaleName = scaleName;
+  this.isProgressionChord = false;
+  this.currentChordName = undefined;
+  this.currentDegree = undefined;
+  this.updateProgressionChordNames();
   this.getScales();
  }
 
  getArpeggioName(type: string) {
   this.isArpeggio = true;
   this.currentScaleName = type;
+  this.progressionChordNames = [];
+  this.isProgressionChord = false;
+  this.currentChordName = undefined;
+  this.currentDegree = undefined;
+  this.chordDiagrams = [];
   this.getScales();
+ }
+
+ updateProgressionChordNames() {
+    this.progressionChordNames = [];
+    if (this.isArpeggio || !this.currentNote || !this.currentScaleName) return;
+
+    const row: any = progressions.find((p: any) => p.name === this.currentScaleName);
+    if (!row) return;
+
+    const romans = [
+      row.roman_1, row.roman_2, row.roman_3,
+      row.roman_4, row.roman_5, row.roman_6, row.roman_7
+    ];
+    const computed = Progression.fromRomanNumerals(this.currentNote, romans);
+    this.progressionChordNames = romans.map((r: string, i: number) => r === '-' ? '-' : (computed[i] || '-'));
+ }
+
+ private findChordHits(start: number, window: number, chromaToDegree: Map<number, number>): (number | null)[] {
+    const hits: (number | null)[] = [];
+    for (let stringIdx = 0; stringIdx < this.numberOfString; stringIdx++) {
+      let hitFret: number | null = null;
+      for (let f = start; f < start + window; f++) {
+        const chroma = (f + this.guitarTuning[stringIdx]) % 12;
+        if (chromaToDegree.has(chroma)) { hitFret = f; break; }
+      }
+      hits.push(hitFret);
+    }
+    return hits;
+ }
+
+ private buildChordShape(start: number, window: number, chromaToDegree: Map<number, number>): ChordDiagram {
+    const hits = this.findChordHits(start, window, chromaToDegree);
+    const rowBase = start === 0 ? 1 : start;
+    const rowCount = start === 0 ? window - 1 : window;
+
+    const stringsHighToLow = hits.map((fret, idx) => {
+      const tuningValue = this.guitarTuning[idx];
+      if (fret === null) {
+        return { status: 'muted' as const, fret: null as number | null, degree: null as number | null, tuningValue };
+      }
+      const chroma = (fret + tuningValue) % 12;
+      const degree = chromaToDegree.get(chroma) ?? null;
+      return { status: (fret === 0 ? 'open' : 'fretted') as 'open' | 'fretted', fret, degree, tuningValue };
+    });
+
+    const stringsLowToHigh = [...stringsHighToLow].reverse();
+
+    const grid: (({ degree: number } | null)[])[] = [];
+    for (let r = 0; r < rowCount; r++) {
+      const rowFret = rowBase + r;
+      grid.push(stringsLowToHigh.map(s =>
+        (s.status === 'fretted' && s.fret === rowFret && s.degree !== null) ? { degree: s.degree } : null
+      ));
+    }
+
+    return {
+      positionLabel: start > 0 ? `${start}fr` : '',
+      markers: stringsLowToHigh.map(s => s.status === 'open' ? 'O' : s.status === 'muted' ? 'X' : ''),
+      grid,
+      stringLabels: stringsLowToHigh.map(s => this.generateNoteNames(s.tuningValue, this.accidentals_sharps)),
+    };
+ }
+
+ computeChordDiagramShapes(chordName: string): ChordDiagram[] {
+    const chordData = TonalChord.get(chordName);
+    if (!chordData.notes || !chordData.intervals) return [];
+
+    const chromaToDegree = new Map<number, number>();
+    chordData.notes.forEach((noteName: string, i: number) => {
+      const chroma = Note.chroma(noteName);
+      const degree = parseInt(chordData.intervals[i]);
+      if (chroma != null && !isNaN(degree)) chromaToDegree.set(chroma, degree);
+    });
+
+    const WINDOW = 5;
+    const maxStart = this.numbersOfFrets - WINDOW;
+
+    // How many strings get a chord tone within each possible 5-fret window
+    const counts: number[] = [];
+    for (let start = 0; start <= maxStart; start++) {
+      counts.push(this.findChordHits(start, WINDOW, chromaToDegree).filter(h => h !== null).length);
+    }
+
+    const bestCount = Math.max(...counts);
+    const minAccepted = Math.max(bestCount - 1, this.numberOfString - 2);
+
+    // A "shape" is a local peak in coverage that's still comfortably playable
+    const candidates: number[] = [];
+    for (let start = 0; start <= maxStart; start++) {
+      if (counts[start] < minAccepted) continue;
+      const prev = start > 0 ? counts[start - 1] : -1;
+      const next = start < maxStart ? counts[start + 1] : -1;
+      if (counts[start] >= prev && counts[start] >= next) {
+        candidates.push(start);
+      }
+    }
+
+    // Collapse candidates that are right next to each other (same physical position)
+    const chosenStarts: number[] = [];
+    for (const start of candidates) {
+      if (chosenStarts.length === 0 || start - chosenStarts[chosenStarts.length - 1] >= WINDOW - 2) {
+        chosenStarts.push(start);
+      }
+    }
+    if (chosenStarts.length === 0) chosenStarts.push(counts.indexOf(bestCount));
+
+    return chosenStarts.map(start => this.buildChordShape(start, WINDOW, chromaToDegree));
+ }
+
+ selectProgressionDegree(degree: number) {
+    if (this.isArpeggio) return;
+    const chordName = this.progressionChordNames[degree - 1];
+    if (!chordName || chordName === '-') return;
+
+    if (this.isProgressionChord && this.currentDegree === degree) {
+      this.isProgressionChord = false;
+      this.currentChordName = undefined;
+      this.currentDegree = undefined;
+    } else {
+      this.isProgressionChord = true;
+      this.currentDegree = degree;
+      this.currentChordName = chordName;
+    }
+    this.getScales();
  }
 
  clearFretboard() {
@@ -287,6 +438,12 @@ export class SocialFeedComponent implements OnInit {
     this.isArpeggio = false;
     this.showAllNoteNames = false;
     this.showDegrees = false;
+    this.progressionChordNames = [];
+    this.isProgressionChord = false;
+    this.currentChordName = undefined;
+    this.currentDegree = undefined;
+    this.chordDiagrams = [];
+    this.chordDiagramLabel = '';
 
     document.querySelectorAll('input[name="btnradio"], input[name="btnradionote"]')
       .forEach((r: any) => { r.checked = false; });
@@ -342,23 +499,41 @@ export class SocialFeedComponent implements OnInit {
     // Build chroma → degree map
     const chromaToDegree = new Map<number, number>();
 
-    if (this.isArpeggio) {
+    if (this.isProgressionChord && this.currentChordName) {
+      const chordData = TonalChord.get(this.currentChordName);
+      if (chordData.intervals && chordData.notes) {
+        chordData.notes.forEach((noteName: string, i: number) => {
+          const chroma = Note.chroma(noteName);
+          const degree = parseInt(chordData.intervals[i]);
+          if (chroma != null && !isNaN(degree)) chromaToDegree.set(chroma, degree);
+        });
+      }
+      this.chordDiagramLabel = this.currentChordName;
+      this.chordDiagrams = this.computeChordDiagramShapes(this.currentChordName);
+    } else if (this.isArpeggio) {
+      this.chordDiagrams = [];
+      this.chordDiagramLabel = '';
       const suffixes: { [k: string]: string } = {
         'arp-major': ' major', 'arp-minor': ' minor',
         'arp-dom7': '7', 'arp-maj7': 'maj7', 'arp-m7': 'm7',
       };
       const suffix = suffixes[this.currentScaleName];
       if (suffix !== undefined) {
-        const chordData = TonalChord.get(this.currentNote + suffix);
+        const arpChordName = this.currentNote + suffix;
+        const chordData = TonalChord.get(arpChordName);
         if (chordData.intervals && chordData.notes) {
           chordData.notes.forEach((noteName: string, i: number) => {
             const chroma = Note.chroma(noteName);
             const degree = parseInt(chordData.intervals[i]);
             if (chroma != null && !isNaN(degree)) chromaToDegree.set(chroma, degree);
           });
+          this.chordDiagramLabel = arpChordName;
+          this.chordDiagrams = this.computeChordDiagramShapes(arpChordName);
         }
       }
     } else {
+      this.chordDiagrams = [];
+      this.chordDiagramLabel = '';
       const scaleData = TonalScale.get(this.currentNote + ' ' + this.currentScaleName);
       if (scaleData.intervals && scaleData.notes) {
         scaleData.notes.forEach((noteName: string, i: number) => {

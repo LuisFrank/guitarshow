@@ -152,6 +152,21 @@
                     </div>
                 </div>
 
+                <!-- ACORDES DE LA PROGRESIÓN -->
+                <div class="selector-block" *ngIf="!isArpeggio && currentNote && currentScaleName">
+                    <div class="selector-block-label">ACORDES DE LA PROGRESIÓN</div>
+                    <div class="selector-grid">
+                        <ng-container *ngFor="let chordName of progressionChordNames; index as i">
+                            <button class="btn btn-outline-secondary"
+                                    [class.active]="isProgressionChord && currentDegree === (i+1)"
+                                    [disabled]="chordName === '-'"
+                                    (click)="selectProgressionDegree(i+1)">
+                                {{ progressionRomanLabels[i] }} · {{ chordName }}
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+
                 <!-- ARPEGIOS -->
                 <div class="selector-block">
                     <div class="selector-block-label">ARPEGIOS</div>
@@ -170,6 +185,38 @@
 
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio-arp5" autocomplete="off" (click)="getArpeggioName('arp-m7')">
                         <label class="btn btn-outline-secondary" for="btnradio-arp5">7b MENOR</label>
+                    </div>
+                </div>
+
+                <!-- FORMAS DEL ACORDE (progresión o arpeggio) -->
+                <div class="selector-block" *ngIf="chordDiagrams.length">
+                    <div class="selector-block-label">FORMAS DEL ACORDE</div>
+                    <div class="chord-diagram-list">
+                        <div class="chord-diagram" *ngFor="let diagram of chordDiagrams; index as shapeIndex">
+                            <div class="chord-diagram-header">
+                                <span class="chord-diagram-name">{{ chordDiagramLabel }}</span>
+                                <span class="chord-diagram-position">{{ diagram.positionLabel || 'Abierto' }}</span>
+                            </div>
+                            <div class="chord-diagram-markers">
+                                <span *ngFor="let m of diagram.markers">{{ m }}</span>
+                            </div>
+                            <div class="chord-diagram-grid">
+                                <div class="chord-diagram-row" *ngFor="let row of diagram.grid">
+                                    <div class="chord-diagram-cell" *ngFor="let cell of row">
+                                        <span class="chord-diagram-dot"
+                                              *ngIf="cell"
+                                              [class.dot-root]="cell.degree === 1 && degreeHighlights[1]"
+                                              [class.dot-3]="cell.degree === 3 && degreeHighlights[3]"
+                                              [class.dot-5]="cell.degree === 5 && degreeHighlights[5]"
+                                              [class.dot-7]="cell.degree === 7 && degreeHighlights[7]"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chord-diagram-labels">
+                                <span *ngFor="let l of diagram.stringLabels">{{ l }}</span>
+                            </div>
+                            <div class="chord-diagram-shape-label">Forma {{ shapeIndex + 1 }}</div>
+                        </div>
                     </div>
                 </div>
 
