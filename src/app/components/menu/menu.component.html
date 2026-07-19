@@ -7,10 +7,10 @@
     </div>
 
     <ul class="nav-links" [ngClass]="{'nav-open': showMenu}">
-      <li><a href="#GuitarTune"        (click)="showMenu=false">Afinador</a></li>
-      <li><a href="#GuitarScales"      (click)="showMenu=false">Escalas</a></li>
-      <li><a href="#GuitarProgresions" (click)="showMenu=false">Progresiones</a></li>
-      <li><a href="#Metronome"         (click)="showMenu=false">Metrónomo</a></li>
+      <li><a href="#GuitarTune"        (click)="closeMenu()">Afinador</a></li>
+      <li><a href="#GuitarScales"      (click)="closeMenu()">Escalas</a></li>
+      <li><a href="#GuitarProgresions" (click)="closeMenu()">Progresiones</a></li>
+      <li><a href="#Metronome"         (click)="closeMenu()">Metrónomo</a></li>
     </ul>
 
     <button class="nav-toggle" (click)="toogleMenu()" [class.open]="showMenu">

@@ -14,8 +14,11 @@ export class MenuComponent implements OnInit {
   }
 
   toogleMenu(){
-    console.log("Hwllo","GGG")
     this.showMenu = !this.showMenu;
+  }
+
+  closeMenu(){
+    this.showMenu = false;
   }
 
 }
